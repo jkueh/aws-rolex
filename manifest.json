@@ -1,0 +1,31 @@
+{
+  "name": "AWS RolEx",
+  "version": "1.0.1",
+  "description": "AWS Role Extension",
+  "manifest_version": 2,
+  "permissions": [
+    "activeTab"
+  ],
+  "incognito": "spanning",
+  "web_accessible_resources": [
+    "aws-rolex-background.jpg"
+  ],
+  "icons": {
+    "96": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://signin.aws.amazon.com/saml"
+      ],
+      "run_at": "document_start",
+      "js": [
+        "aws-rolex-background.js",
+        "fuse_5.1.0.min.js"
+      ],
+      "css": [
+        "aws-rolex-background.css"
+      ]
+    }
+  ]
+}

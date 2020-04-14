@@ -1,0 +1,61 @@
+html,
+body {
+  min-height: 100%;
+}
+
+input#custom-filter {
+  width: 100%;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  padding: 0.75rem;
+}
+
+/* Some overrides */
+.saml-account, form#saml_form > p {
+  padding-left: 0 !important;
+}
+.acc-nomatch {
+  display: none;
+}
+.acc-match {
+  display: block;
+}
+
+html {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image:
+    url("chrome-extension://__MSG_@@extension_id__/aws-rolex-background.jpg"),
+    url("moz-extension://__MSG_@@extension_id__/aws-rolex-background.jpg");
+  background-attachment: fixed;
+  overflow: visible;
+  transition: background 1s ease;
+}
+
+body #container {
+  width: 50%;
+  max-width: 540px;
+  float: right;
+  min-height: 100%;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  box-sizing: border-box;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 5px;
+  margin: 2rem 4rem;
+}
+
+body #container #content {
+  min-width: auto;
+}
+
+/* Customisations */
+div.saml-role.filter-match {
+  display: block;
+}
+div.saml-role.filter-nomatch {
+  display: none;
+}
