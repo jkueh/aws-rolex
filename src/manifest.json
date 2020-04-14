@@ -1,4 +1,6 @@
 {
+  "author": "Jordan Kueh",
+  "homepage_url": "https://github.com/jordankueh/aws-rolex",
   "name": "AWS RolEx",
   "version": "1.0.1",
   "description": "AWS Role Extension",
