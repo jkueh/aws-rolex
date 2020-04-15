@@ -4,6 +4,7 @@ AWS Role Extension (AWS RolEx) - A little browser extension to make the role sel
 
 aws-rolex can be found here:
 * Chrome Web Store: https://chrome.google.com/webstore/detail/aws-rolex/mielpcboppjdjnfdkilgbhkbipambfgo
+* Firefox Add-ons: https://addons.mozilla.org/en-US/firefox/addon/aws-rolex/
 
 ## Bundled Dependencies
 
