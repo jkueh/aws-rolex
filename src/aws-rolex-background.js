@@ -90,6 +90,7 @@ window.onload = function () {
       ],
       includeScore: true,
       shouldSort: true,
+      useExtendedSearch: true,
       distance: 100,
       threshold: 0.2
     })
