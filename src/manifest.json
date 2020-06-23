@@ -13,7 +13,7 @@
     "aws-rolex-background.jpg"
   ],
   "icons": {
-    "96": "icon.png"
+    "512": "icon.png"
   },
   "content_scripts": [
     {
