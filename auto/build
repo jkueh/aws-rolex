@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+DOCKER_IMAGE="alpine:latest"
+
+# Welcome to the world's most complex 'zip' command?
+
+docker run \
+  --rm \
+  --interactive \
+  --volume "${PWD}:${PWD}" \
+  --workdir "${PWD}" \
+  "${DOCKER_IMAGE}" <<COMMANDS
+apk add zip
+(cd src && zip -r ../build/aws-rolex.zip *)
+COMMANDS
