@@ -2,9 +2,10 @@
   "author": "Jordan Kueh",
   "homepage_url": "https://github.com/jkueh/aws-rolex",
   "name": "AWS RolEx",
-  "version": "1.0.3",
-  "description": "AWS Role Extension",
+  "version": "1.0.4",
+  "description": "A handy extension that adds a search bar to the AWS role selection page. Log in without leaving the keyboard!",
   "manifest_version": 2,
+  "default_locale": "en",
   "permissions": [
     "activeTab"
   ],
@@ -13,6 +14,9 @@
     "aws-rolex-background.jpg"
   ],
   "icons": {
+    "16": "icon.16.png",
+    "48": "icon.48.png",
+    "128": "icon.128.png",
     "512": "icon.png"
   },
   "content_scripts": [
