@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Checksum the files
-        run: find src -exec md5sum {} \;
+        run: find src -type f -exec md5sum {} \;
       - name: Output the manifest.json file
         run: cat src/manifest.json
       - name: Run the Build Script
