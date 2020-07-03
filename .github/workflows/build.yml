@@ -11,6 +11,4 @@ jobs:
       - name: Output the manifest.json file
         run: cat src/manifest.json
       - name: Run the Build Script
-        run: auto/build
-      - name: Get a checksum for the zip file
-        run: md5sum build/*.zip
+        run: auto/build && md5sum build/*.zip
