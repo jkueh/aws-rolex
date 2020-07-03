@@ -5,7 +5,6 @@
   "version": "1.0.4",
   "description": "A handy extension that adds a search bar to the AWS role selection page. Log in without leaving the keyboard!",
   "manifest_version": 2,
-  "default_locale": "en",
   "permissions": [
     "activeTab"
   ],
