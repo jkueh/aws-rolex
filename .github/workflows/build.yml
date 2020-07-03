@@ -1,0 +1,13 @@
+name: Run The Build Script™
+
+on: push
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Run the Build Script
+      run: auto/build
