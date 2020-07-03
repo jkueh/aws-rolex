@@ -12,3 +12,7 @@ jobs:
         run: cat src/manifest.json
       - name: Run the Build Script
         run: auto/build && md5sum build/*.zip
+      - uses: actions/upload-artifact@v2
+        with:
+          name: aws-rolex
+          path: ./build/*.zip
