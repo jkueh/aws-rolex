@@ -14,5 +14,5 @@ jobs:
         run: auto/build && md5sum build/*.zip
       - uses: actions/upload-artifact@v2
         with:
-          name: aws-rolex
+          name: build-artefact
           path: ./build/*.zip
