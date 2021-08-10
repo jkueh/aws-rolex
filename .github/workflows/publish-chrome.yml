@@ -1,0 +1,23 @@
+name: Build and publish to the Chrome web store
+
+on:
+  push:
+    branches: main
+
+jobs:
+  build:
+    name: "Build and publish to Chrome Web Store"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run the Build Script
+        run: auto/build
+
+      - uses: trmcnvn/chrome-addon@v2
+        with:
+          extension: mielpcboppjdjnfdkilgbhkbipambfgo
+          zip: build/aws-rolex.zip
+          client-id: ${{ secrets.GCP_CLIENT_ID }}
+          client-secret: ${{ secrets.GCP_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.GCP_REFRESH_TOKEN }}

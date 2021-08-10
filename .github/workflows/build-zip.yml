@@ -1,0 +1,22 @@
+name: Build - zip
+
+on:
+  push:
+    branches-ignore: [main]
+
+jobs:
+  build:
+    name: "Build - zip package"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v1
+
+      - name: Run build script
+        run: auto/build
+
+      - name: "Upload Artifact"
+        uses: actions/upload-artifact@v2
+        with:
+          name: aws-rolex.zip
+          path: build/aws-rolex.zip
