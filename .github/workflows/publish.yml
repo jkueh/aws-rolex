@@ -18,7 +18,7 @@ jobs:
       - name: "Upload Artifact"
         uses: actions/upload-artifact@v2
         with:
-          name: aws-rolex.zip
+          name: chrome-package
           path: build/aws-rolex.zip
 
   build_web-ext:
@@ -38,73 +38,5 @@ jobs:
       - name: "Upload Artifact"
         uses: actions/upload-artifact@v2
         with:
-          name: target.xpi
+          name: firefox-package
           path: ${{ steps.web-ext-build.outputs.target }}
-
-  publish_chrome:
-    name: "Publish - Chrome Web Store"
-    runs-on: ubuntu-latest
-    container: alpine:3.14
-    needs: build_zip
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: apk add --update curl jq bash
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: aws-rolex.zip
-          path: build/aws-rolex.zip
-
-      # Built from https://github.com/Klemensas/chrome-extension-upload-action/blob/master/entrypoint.sh after I had
-      # issues with the github action.
-
-      - name: "Publish to Chrome Web Store"
-        run: auto/publish-to-chrome-web-store.sh
-        env:
-          REFRESH_TOKEN: ${{ secrets.GCP_REFRESH_TOKEN }}
-          CLIENT_ID: ${{ secrets.GCP_CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.GCP_CLIENT_SECRET }}
-          APP_ID: mielpcboppjdjnfdkilgbhkbipambfgo
-          FILE_NAME: build/aws-rolex.zip
-          PUBLISH: "true"
-
-  # publish_firefox:
-  #   name: "Firefox Addons"
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-
-  #     - name: "web-ext build"
-  #       id: web-ext-build
-  #       uses: kewisch/action-web-ext@v1
-  #       with:
-  #         cmd: build
-  #         source: src
-
-  #     - name: "web-ext sign"
-  #       id: web-ext-sign
-  #       uses: kewisch/action-web-ext@v1
-  #       with:
-  #         cmd: sign
-  #         source: ${{ steps.web-ext-build.outputs.target }}
-  #         channel: listed
-  #         apiKey: ${{ secrets.AMO_SIGN_KEY }}
-  #         apiSecret: ${{ secrets.AMO_SIGN_SECRET }}
-  #         timeout: 900000
-
-  #     - uses: trmcnvn/firefox-addon@v1
-  #       with:
-  #         uuid: '{75a0b0c5-4107-4731-a745-aa3d305a3934}'
-  #         xpi: ${{ steps.web-ext-build.outputs.target }}
-  #         manifest: src/manifest.json
-  #         api-key: ${{ secrets.FIREFOX_JWT_ISSUER }}
-  #         api-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
-
-  #     - name: "Upload Artifact"
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: target.xpi
-  #         path: ${{ steps.web-ext-build.outputs.target }}

@@ -18,7 +18,7 @@ jobs:
       - name: "Upload Artifact"
         uses: actions/upload-artifact@v2
         with:
-          name: aws-rolex.zip
+          name: chrome-package
           path: build/aws-rolex.zip
 
   build_web-ext:
@@ -38,5 +38,5 @@ jobs:
       - name: "Upload Artifact"
         uses: actions/upload-artifact@v2
         with:
-          name: target.xpi
+          name: mozilla-package
           path: ${{ steps.web-ext-build.outputs.target }}
