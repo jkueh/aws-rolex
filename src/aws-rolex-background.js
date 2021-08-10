@@ -74,19 +74,41 @@ window.onload = function () {
     }
 
     formObjs.forEach(function (roleObj) {
+
+      let accountElement = roleObj.parentElement.parentElement;
+
+      // This is the string that appears above the horizontal rule that reads:
+      //   "Account: account-alias-here (account-number-here)"
+      let accountRefString = accountElement
+        .querySelector(".saml-account-name")
+        .textContent
+        .replace("Account: ", "");
+
+      /*
+        Split the string into an array:
+          'zerocube-production (12345678910)' -> ['zerocube-production', '(12345678910)']
+        Then reverse it:
+          ['(12345678910)', 'zerocube-production']
+        Then pop off the last element of the array:
+          'zerocube-production'
+      */
+      let accountAlias = accountRefString.split(" ").reverse().pop();
+
       let roleARN = getRoleARNFromRoleObj(roleObj);
       let roleNameMatch = roleARN.match(/\/(.*)/);
-      let accountMatch = roleARN.match(/[0-9]+/);
+      let accountIdMatch = roleARN.match(/[0-9]+/);
       roleARNs.push({
         'roleARN': roleARN,
         'roleName': roleNameMatch.slice(-1)[0],
-        'account': accountMatch.slice(-1)[0]
+        'accountAlias': accountAlias,
+        'accountId': accountIdMatch.slice(-1)[0]
       })
     });
     let fuse = new Fuse(roleARNs, {
       keys: [
-        { name: 'roleName', weight: 0.9 },
-        { name: 'account', weight: 0.1 }
+        { name: 'roleName', weight: 0.6 },
+        { name: 'accountAlias', weight: 0.3 },
+        { name: 'accountId', weight: 0.1 }
       ],
       includeScore: true,
       shouldSort: true,
