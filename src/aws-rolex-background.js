@@ -168,13 +168,29 @@ window.onload = function () {
   // Attach another event listener to the down arrow key to select the first
   // visible radio button
   inputField.addEventListener("keyup", function (ev) {
-    if (ev.key == "ArrowDown") {
-      let radioButton = form.querySelector("div.saml-role.filter-match input");
-      if (!radioButton) { // Set it as the first role in the form if nothing has been matched yet
-        radioButton = form.querySelector("div.saml-role input");
+    if (ev.key == "ArrowDown" || ev.key == "ArrowUp") {
+      var matchedRoles = form.querySelectorAll("div.saml-role.filter-match input");
+
+      if (ev.key == "ArrowDown") {
+        if (matchedRoles.length == 0) {
+          var radioButton = form.querySelector("div.saml-role input");
+        } else {
+          var radioButton = matchedRoles.item(0);
+        }
+
+        radioButton.checked = true;
+        radioButton.focus();
+      } else if (ev.key == "ArrowUp") {
+        if (matchedRoles.length == 0) {
+          let inputs = form.querySelectorAll("div.saml-role input")
+          var radioButton = inputs.item(inputs.length - 1);
+        } else {
+          var radioButton = matchedRoles.item(matchedRoles.length - 1);
+        }
+
+        radioButton.checked = true;
+        radioButton.focus();
       }
-      radioButton.checked = true;
-      radioButton.focus();
     }
   });
 };
