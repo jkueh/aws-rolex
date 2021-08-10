@@ -56,7 +56,7 @@ window.onload = function () {
     // match.
     // Only accept matches above this weight.
     let formObjs = form.querySelectorAll("div.saml-role");
-    let roleARNs = [];
+    let roles = [];
 
     // If we're not matching against anything, ensure that the filter classes
     // are removed
@@ -97,14 +97,14 @@ window.onload = function () {
       let roleARN = getRoleARNFromRoleObj(roleObj);
       let roleNameMatch = roleARN.match(/\/(.*)/);
       let accountIdMatch = roleARN.match(/[0-9]+/);
-      roleARNs.push({
+      roles.push({
         'roleARN': roleARN,
         'roleName': roleNameMatch.slice(-1)[0],
         'accountAlias': accountAlias,
         'accountId': accountIdMatch.slice(-1)[0]
       })
     });
-    let fuse = new Fuse(roleARNs, {
+    let fuse = new Fuse(roles, {
       keys: [
         { name: 'roleName', weight: 0.6 },
         { name: 'accountAlias', weight: 0.3 },
@@ -168,8 +168,11 @@ window.onload = function () {
   // Attach another event listener to the down arrow key to select the first
   // visible radio button
   inputField.addEventListener("keyup", function (ev) {
-    if (ev.keyCode == 40) {
+    if (ev.key == "ArrowDown") {
       let radioButton = form.querySelector("div.saml-role.filter-match input");
+      if (!radioButton) { // Set it as the first role in the form if nothing has been matched yet
+        radioButton = form.querySelector("div.saml-role input");
+      }
       radioButton.checked = true;
       radioButton.focus();
     }
