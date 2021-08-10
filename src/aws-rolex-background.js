@@ -114,6 +114,7 @@ window.onload = function () {
       shouldSort: true,
       useExtendedSearch: true,
       distance: 100,
+      ignoreLocation: true,
       threshold: 0.2
     })
     let matches = fuse.search(matchString);
@@ -193,4 +194,10 @@ window.onload = function () {
       }
     }
   });
+
+  /*
+    Hotfix for Firefox - Assign a tabIndex to each account so that we can navigate between radio
+    buttons with arrow keys.
+  */
+  document.querySelectorAll("div.saml-acount").forEach((a, i) => a.setAttribute("tabIndex", i))
 };
