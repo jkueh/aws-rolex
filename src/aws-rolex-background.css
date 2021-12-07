@@ -21,7 +21,7 @@ input#custom-filter {
   display: block;
 }
 
-html {
+body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -30,7 +30,6 @@ html {
     url("moz-extension://__MSG_@@extension_id__/aws-rolex-background.jpg");
   background-attachment: fixed;
   overflow: visible;
-  transition: background 1s ease;
 }
 
 body #container {

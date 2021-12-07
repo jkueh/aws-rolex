@@ -1,3 +1,7 @@
+if (typeof browser === "undefined") {
+  browser = chrome; // maintain cross browser compatibility
+}
+
 function getForm() {
   return document.querySelector("form#saml_form");
 }
@@ -12,6 +16,14 @@ function radioButtonEnterEvent(ev) {
     form.submit();
   }
 }
+
+const storageGet = (key) => {
+  return new Promise((resolve) => {
+    browser.storage.local.get(key, (result) => {
+      resolve(result[key]);
+    });
+  });
+};
 
 // fieldSet is the div.saml-account wrapper that contains everything
 function hideSectionsWithNoMatchingRoles(fieldSet) {
@@ -192,6 +204,12 @@ window.onload = function () {
         radioButton.checked = true;
         radioButton.focus();
       }
+    }
+  });
+
+  storageGet("options").then((options) => {
+    if (options?.imgBlob) {
+      document.body.style.backgroundImage = `url('${options.imgBlob}')`;
     }
   });
 
