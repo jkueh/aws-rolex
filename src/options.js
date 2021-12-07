@@ -30,7 +30,7 @@ document.getElementById('file-selector').addEventListener('change', (event) => {
 });
 
 storageGet("options").then((options) => {
-  if (!!options.imgBlob) {
+  if (!!options && !!options.imgBlob) {
     document.getElementById("img-preview").src = options.imgBlob;
   }
 });
