@@ -40,3 +40,19 @@ jobs:
         with:
           name: mozilla-package
           path: ${{ steps.web-ext-build.outputs.target }}
+
+  build_safari:
+    name: "Build - Safari Extension Converter"
+    runs-on: macos-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v1
+
+      - name: "Running: safari-web-extension-converter"
+        run: xcrun /Applications/Xcode.app/Contents/Developer/usr/bin/safari-web-extension-converter --no-open --no-prompt --copy-resources ./src/
+
+      - name: "Upload Artifact"
+        uses: actions/upload-artifact@v2
+        with:
+          name: apple-extension
+          path: "./AWS RolEx/"

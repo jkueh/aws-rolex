@@ -26,6 +26,7 @@ body {
   background-size: cover;
   background-position: center;
   background-image:
+    url("//__MSG_@@extension_id__/aws-rolex-background.jpg"),
     url("chrome-extension://__MSG_@@extension_id__/aws-rolex-background.jpg"),
     url("moz-extension://__MSG_@@extension_id__/aws-rolex-background.jpg");
   background-attachment: fixed;
