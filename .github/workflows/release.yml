@@ -20,7 +20,7 @@ jobs:
         run: cd src && web-ext lint
 
   build_zip:
-    name: "Build - zip package"
+    name: "Build - Zip Package"
     needs: [lint]
     runs-on: ubuntu-latest
     steps:
@@ -33,44 +33,73 @@ jobs:
       - name: "Upload Artifact"
         uses: actions/upload-artifact@v4
         with:
-          name: chrome-package
+          name: zip-package
           path: build/aws-rolex.zip
 
-  build_web_ext:
-    name: "Build - web-ext package"
+  # Thanks, Google.
+  build_chrome:
+    name: "Build - Chrome Package"
     needs: [lint]
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
         uses: actions/checkout@v1
 
-      - name: "web-ext build"
-        id: web-ext-build
-        uses: kewisch/action-web-ext@v1
+      - name: Remove unsupported keys
+        run: jq '. | del(.browser_specific_settings)' src/manifest.json > manifest.json.new && mv -v manifest.json.new src/manifest.json
+
+      - name: Run build script
+        run: auto/build
+
+      - name: Rename file
+        run: mv -v build/aws-rolex.zip build/aws-rolex-chrome.zip
+
+      - name: "Upload Artifact"
+        uses: actions/upload-artifact@v4
         with:
-          cmd: build
-          source: src
+          name: chrome-package
+          path: build/aws-rolex-chrome.zip
+
+  build_firefox:
+    name: "Build - Firefox Package"
+    needs: [lint]
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v1
+
+      - name: web-ext build
+        run: npx web-ext build --source-dir ./src/ --artifacts-dir ./build/ --filename "aws-rolex-firefox.xpi"
 
       - name: "Upload Artifact"
         uses: actions/upload-artifact@v4
         with:
           name: firefox-package
-          path: ${{ steps.web-ext-build.outputs.target }}
+          path: build/*.xpi
 
   create_release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
     needs:
       - build_zip
-      - build_web_ext
+      - build_chrome
+      - build_firefox
     permissions:
       contents: write
     steps:
+      
+      - name: Download zip-package
+        uses: actions/download-artifact@v4
+        with:
+          name: zip-package
+          path: build/
+
       - name: Download chrome-package
         uses: actions/download-artifact@v4
         with:
           name: chrome-package
           path: build/
+
       - name: Download firefox-package
         uses: actions/download-artifact@v4
         with:
@@ -84,6 +113,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref_name }}
-          files: build/*.zip
+          files: |
+            build/*.zip
+            build/*.xpi
           body: |
             Release: Version ${{ github.ref_name }}

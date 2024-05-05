@@ -49,7 +49,7 @@ jobs:
         run: auto/build
 
       - name: Rename file
-        run: mv -v build/aws-rolex.zip aws-rolex-chrome.zip
+        run: mv -v build/aws-rolex.zip build/aws-rolex-chrome.zip
 
       - name: "Upload Artifact"
         uses: actions/upload-artifact@v4
@@ -72,7 +72,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: firefox-package
-          path: build/*.zip
+          path: build/*.xpi
 
   release_artifacts_check:
     name: Check Artifacts
