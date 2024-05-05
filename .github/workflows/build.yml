@@ -13,11 +13,8 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v1
 
-      - name: web-ext install
-        run: npm install --global web-ext
-
       - name: web-ext lint
-        run: cd src && web-ext lint
+        run: cd src && npx web-ext lint
 
   build_zip:
     name: "Build - zip package"
@@ -44,18 +41,14 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v1
 
-      - name: "web-ext build"
-        id: web-ext-build
-        uses: kewisch/action-web-ext@v1
-        with:
-          cmd: build
-          source: src
+      - name: web-ext build
+        run: npx web-ext build --source-dir ./src/ --artifacts-dir ./build/ --filename "aws-rolex-firefox.xpi"
 
       - name: "Upload Artifact"
         uses: actions/upload-artifact@v4
         with:
-          name: mozilla-package
-          path: ${{ steps.web-ext-build.outputs.target }}
+          name: firefox-package
+          path: build/*.zip
 
   release_artifacts_check:
     name: Check Artifacts
