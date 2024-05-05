@@ -5,8 +5,23 @@ on:
     branches-ignore: [main]
 
 jobs:
+
+  lint:
+    name: "web-ext lint"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v1
+
+      - name: web-ext install
+        run: npm install --global web-ext
+
+      - name: web-ext lint
+        run: cd src && web-ext lint
+
   build_zip:
     name: "Build - zip package"
+    needs: [lint]
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
@@ -23,6 +38,7 @@ jobs:
 
   build_web-ext:
     name: "Build - web-ext package"
+    needs: [lint]
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
