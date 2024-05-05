@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Downloads the binaries from the latest GitHub actions run into the ./build/ directory
+
+rm -rf build/* >/dev/null 2>&1
+
+gh run download --pattern *-package --dir "build"
