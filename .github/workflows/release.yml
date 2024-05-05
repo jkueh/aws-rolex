@@ -31,7 +31,7 @@ jobs:
         run: auto/build
 
       - name: "Upload Artifact"
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: chrome-package
           path: build/aws-rolex.zip
@@ -52,7 +52,7 @@ jobs:
           source: src
 
       - name: "Upload Artifact"
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: firefox-package
           path: ${{ steps.web-ext-build.outputs.target }}
