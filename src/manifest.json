@@ -43,5 +43,10 @@
   ],
   "options_ui": {
     "page": "options.html"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "aws-rolex@addons.mozilla.org"
+    }
   }
 }
