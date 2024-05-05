@@ -4,7 +4,7 @@
   "name": "AWS RolEx",
   "version": "1.2.1",
   "description": "A handy extension that adds a search bar to the AWS role selection page. Log in without leaving the keyboard!",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "permissions": [
     "activeTab",
     "storage"
