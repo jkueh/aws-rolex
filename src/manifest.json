@@ -11,7 +11,14 @@
   ],
   "incognito": "spanning",
   "web_accessible_resources": [
-    "aws-rolex-background.jpg"
+    {
+      "resources": [
+        "aws-rolex-background.jpg"
+      ],
+      "matches": [
+        "*://*/*"
+      ]
+    }
   ],
   "icons": {
     "16": "icon.16.png",
