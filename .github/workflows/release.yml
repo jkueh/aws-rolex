@@ -1,0 +1,74 @@
+# Creates a GitHub release
+on:
+  push:
+    tags: ["v*"]
+
+name: Create Release
+
+jobs:
+  build_zip:
+    name: "Build - zip package"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v1
+
+      - name: Run build script
+        run: auto/build
+
+      - name: "Upload Artifact"
+        uses: actions/upload-artifact@v2
+        with:
+          name: chrome-package
+          path: build/aws-rolex.zip
+
+  build_web_ext:
+    name: "Build - web-ext package"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v1
+
+      - name: "web-ext build"
+        id: web-ext-build
+        uses: kewisch/action-web-ext@v1
+        with:
+          cmd: build
+          source: src
+
+      - name: "Upload Artifact"
+        uses: actions/upload-artifact@v2
+        with:
+          name: firefox-package
+          path: ${{ steps.web-ext-build.outputs.target }}
+
+  create_release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs:
+      - build_zip
+      - build_web_ext
+    permissions:
+      contents: write
+    steps:
+      - name: Download chrome-package
+        uses: actions/download-artifact@v4
+        with:
+          name: chrome-package
+          path: build/
+      - name: Download firefox-package
+        uses: actions/download-artifact@v4
+        with:
+          name: firefox-package
+          path: build/
+
+      - name: Create release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: build/*.zip
+          body: |
+            Release: Version ${{ github.ref_name }}
