@@ -89,19 +89,19 @@ jobs:
     steps:
       
       - name: Download zip-package
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: zip-package
           path: build/
 
       - name: Download chrome-package
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: chrome-package
           path: build/
 
       - name: Download firefox-package
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: firefox-package
           path: build/
