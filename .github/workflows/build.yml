@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: web-ext lint
         run: cd src && npx web-ext lint
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Run build script
         run: auto/build
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Remove unsupported keys
         run: jq '. | del(.browser_specific_settings)' src/manifest.json > manifest.json.new && mv -v manifest.json.new src/manifest.json
@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: web-ext build
         run: npx web-ext build --source-dir ./src/ --artifacts-dir ./build/ --filename "aws-rolex-firefox.xpi"
