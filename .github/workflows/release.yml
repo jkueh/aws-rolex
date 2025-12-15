@@ -31,7 +31,7 @@ jobs:
         run: auto/build
 
       - name: "Upload Artifact"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: zip-package
           path: build/aws-rolex.zip
@@ -55,7 +55,7 @@ jobs:
         run: mv -v build/aws-rolex.zip build/aws-rolex-chrome.zip
 
       - name: "Upload Artifact"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: chrome-package
           path: build/aws-rolex-chrome.zip
@@ -72,7 +72,7 @@ jobs:
         run: npx web-ext build --source-dir ./src/ --artifacts-dir ./build/ --filename "aws-rolex-firefox.xpi"
 
       - name: "Upload Artifact"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: firefox-package
           path: build/*.xpi
